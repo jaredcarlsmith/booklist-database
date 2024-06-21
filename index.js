@@ -1,7 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import pg from 'pg';
+import dotenv from 'dotenv';
 
+dotenv.config()
 const app = express();
 const port = 4000;
 const db = new pg.Client(
@@ -13,9 +15,23 @@ const db = new pg.Client(
         port: 5432
     }
 );
+db.connect();
 
-app.get("/", (req, res) => {
-    res.render('index.ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+let booklist = [];
+
+app.get("/", async (req, res) => {
+    try {
+        const result = await (await db.query('SELECT * FROM books'));
+        booklist = result.rows; 
+        res.render('index.ejs', { books: booklist });
+        console.log(booklist);
+    }
+    catch (error) {
+        console.log(error);
+    }
 });
 
 app.listen(port, () => {
