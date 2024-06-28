@@ -27,7 +27,18 @@ app.get("/", async (req, res) => {
         const result = await (await db.query('SELECT * FROM books'));
         booklist = result.rows; 
         res.render('index.ejs', { books: booklist });
-        console.log(booklist);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+
+app.post("/add", async (req, res) => {
+    const { title, author, recommendation, image, review } = req.body;
+    try {
+        const query = await (await db.query('INSERT INTO books (title, author, recommendation, image, review) VALUES ($1, $2, $3, $4, $5)', [title, author, recommendation, image, review]));
+        booklist.push(query.rows[0]);
+        res.redirect('/');
     }
     catch (error) {
         console.log(error);

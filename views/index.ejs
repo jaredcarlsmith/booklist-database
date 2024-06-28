@@ -1,9 +1,25 @@
 <%- include('partials/header.ejs') -%>
 <div>
+    <form action="/add" method="post" style="display: flex; flex-direction: column; max-width: 500px; margin: auto; padding: 20px;">
+        <label for="title">Title</label>
+        <input type="text" name="title" placeholder="Title">
+        <label for="author">Author</label>
+        <input type="text" name="author" placeholder="Author">
+        <label for="recommendation">Recommendation (_ out of 10)</label>
+        <input type="number" name="recommendation">
+        <label for="image">Image URL</label>
+        <input type="text" name="image">
+        <label for="review">Written Review</label>
+        <textarea name="review" placeholder="Review"></textarea>
+        <input type="submit" value="Add Book">
+    </form>
+</div>
+<div>
     <% for(let book of books){%>
+        <img src="<%= book.image %>" alt="<%= book.title %>">
         <h3><%= book.title %></h3>
         <h5><%= book.author %></h5>
-        <h6><%= book.recommendation %>/10</h6>
+        <h6>Recommendation: <%= book.recommendation %>/10</h6>
         <p><%= book.review %></p>
     <% } %>
 </div>
