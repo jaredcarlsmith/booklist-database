@@ -14,13 +14,15 @@
         <input type="submit" value="Add Book">
     </form>
 </div>
-<div>
+<div class="container">
     <% for(let book of books){%>
+        <div class="mb-6">
         <img src="<%= book.image %>" alt="<%= book.title %>">
         <h3><%= book.title %></h3>
         <h5><%= book.author %></h5>
         <h6>Recommendation: <%= book.recommendation %>/10</h6>
         <p><%= book.review %></p>
+        </div>
     <% } %>
 </div>
 <%- include('partials/footer.ejs') -%>
