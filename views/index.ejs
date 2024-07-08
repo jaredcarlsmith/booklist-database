@@ -14,14 +14,17 @@
         <input type="submit" value="Add Book">
     </form>
 </div>
-<div class="container">
+<div class="">
     <% for(let book of books){%>
         <div class="mb-6">
-        <img src="<%= book.image %>" alt="<%= book.title %>">
+        <img src="<%= book.image %>" alt="<%= book.title %>" class="max-h-52 h-52">
         <h3><%= book.title %></h3>
         <h5><%= book.author %></h5>
         <h6>Recommendation: <%= book.recommendation %>/10</h6>
         <p><%= book.review %></p>
+        <form action="/edit/<%= book.id %>" method="post">
+            <input type="submit" value="Edit">
+        </form>
         </div>
     <% } %>
 </div>
